@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muzak</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header id="app-header">
+        <h1>Muzak</h1>
+        <div id="transport-controls">
+            <button id="btn-play" class="transport-btn">&#9654; Play</button>
+            <button id="btn-stop" class="transport-btn">&#9632; Stop</button>
+            <span id="bpm-display">BPM: 120</span>
+            <input type="range" id="bpm-slider" min="60" max="200" value="120">
+        </div>
+    </header>
+
+    <main id="app-main">
+        <div id="main-content">
+            <section id="chord-builder-section" class="module-panel">
+                <h2>Chord Progression</h2>
+                <div id="chord-builder"></div>
+            </section>
+
+            <section id="drum-sequencer-section" class="module-panel">
+                <h2>Drum Sequencer</h2>
+                <div id="drum-sequencer"></div>
+            </section>
+
+            <section id="bass-line-section" class="module-panel">
+                <h2>Bass Line</h2>
+                <div id="bass-line"></div>
+            </section>
+
+            <section id="song-structure-section" class="module-panel">
+                <h2>Song Structure</h2>
+                <div id="song-structure"></div>
+            </section>
+
+            <section id="sound-design-section" class="module-panel">
+                <h2>Sound Design</h2>
+                <div id="sound-design"></div>
+            </section>
+        </div>
+
+        <aside id="theory-panel" class="module-panel">
+            <h2>Music Theory</h2>
+            <div id="theory-content">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    Welcome to Muzak! Select a key and start building chord progressions.
+                    Theory tips will appear here as you explore.
+                </p>
+            </div>
+        </aside>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/tone@14/build/Tone.min.js"></script>
+    <script src="{{ url_for('static', filename='js/audio-engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chord-builder.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/drum-sequencer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bass-line.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/song-structure.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sound-design.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/theory-panel.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

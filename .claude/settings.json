@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip3 --version)",
+      "Bash(python3 -c \"import music21\")",
+      "Bash(conda create -n muzak python=3.13 -y)",
+      "Bash(conda run -n muzak pip install flask)",
+      "Bash(conda run -n muzak python -c \"from app import app; print\\(''Flask app loads OK''\\)\")",
+      "Bash(conda run -n muzak python -c \":*)"
+    ]
+  }
+}
