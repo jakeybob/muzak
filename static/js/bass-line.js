@@ -78,7 +78,8 @@ const BassLine = {
         this.renderDisplay();
     },
 
-    async generateBass() {
+    // Generate bass line client-side (no API call needed)
+    generateBass() {
         const chords = AppState.getCurrentSection().chords || [];
         if (chords.length === 0) {
             this.bassLine = [];
@@ -88,22 +89,62 @@ const BassLine = {
         }
 
         const patternEl = document.getElementById("bass-pattern");
-        const pattern = patternEl ? patternEl.value : "Root Notes";
-        const key = AppState.songData.key;
+        const patternName = patternEl ? patternEl.value : "Root Notes";
 
-        try {
-            const resp = await fetch(`/api/bass/${key.root}/${key.scaleType}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ chords, pattern })
-            });
-            const data = await resp.json();
-            this.bassLine = data.bass_line || [];
-            AppState.getCurrentSection().bassLine = [...this.bassLine];
-            this.renderDisplay();
-        } catch (err) {
-            console.error("Bass generation failed:", err);
-        }
+        const totalSteps = 16;
+        const stepsPerChord = Math.floor(totalSteps / chords.length);
+        const bassLine = [];
+
+        chords.forEach((chord, chordIdx) => {
+            const root = chord.root;
+            const notes = chord.notes || [];
+            const bassRoot = root + "2";
+
+            // Get the fifth (3rd element of the triad), transposed to bass octave
+            let fifthNote = bassRoot;
+            if (notes.length >= 3) {
+                fifthNote = notes[2].replace(/[45]/, (m) => m === "5" ? "3" : "2");
+            }
+
+            // Get the third (2nd element of the triad), transposed to bass octave
+            let thirdNote = bassRoot;
+            if (notes.length >= 2) {
+                thirdNote = notes[1].replace(/[45]/, (m) => m === "5" ? "3" : "2");
+            }
+
+            const startStep = chordIdx * stepsPerChord;
+
+            for (let s = 0; s < stepsPerChord; s++) {
+                const step = startStep + s;
+                if (step >= totalSteps) break;
+
+                let note = null;
+                let velocity = 0.8;
+
+                if (patternName === "Root Notes") {
+                    if (s === 0) { note = bassRoot; velocity = 1.0; }
+                } else if (patternName === "Root-Fifth") {
+                    if (s === 0) { note = bassRoot; velocity = 1.0; }
+                    else if (s === 2) { note = fifthNote; velocity = 0.7; }
+                } else if (patternName === "Walking") {
+                    if (s === 0) { note = bassRoot; velocity = 1.0; }
+                    else if (s === 1) { note = thirdNote; velocity = 0.6; }
+                    else if (s === 2) { note = fifthNote; velocity = 0.7; }
+                    else if (s === 3) { note = fifthNote; velocity = 0.5; }
+                } else if (patternName === "Octave Pump") {
+                    if (s === 0) { note = bassRoot; velocity = 1.0; }
+                    else if (s === 2) { note = root + "3"; velocity = 0.7; }
+                }
+
+                if (note) {
+                    bassLine.push({ step, note, velocity });
+                }
+            }
+        });
+
+        this.bassLine = bassLine;
+        AppState.getCurrentSection().bassLine = [...this.bassLine];
+        this.renderDisplay();
     },
 
     renderDisplay() {
