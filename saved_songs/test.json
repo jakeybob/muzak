@@ -1,0 +1,376 @@
+{
+  "title": "test",
+  "bpm": 89,
+  "key": {
+    "root": "G#",
+    "scaleType": "major"
+  },
+  "sections": [
+    {
+      "name": "Main",
+      "bars": 4,
+      "chords": [
+        {
+          "degree": 1,
+          "index": 0,
+          "label": "A",
+          "notes": [
+            "A4",
+            "C#5",
+            "E5"
+          ],
+          "quality": "major",
+          "roman": "I",
+          "root": "A"
+        },
+        {
+          "degree": 4,
+          "index": 3,
+          "label": "D",
+          "notes": [
+            "D4",
+            "F#4",
+            "A4"
+          ],
+          "quality": "major",
+          "roman": "IV",
+          "root": "D"
+        },
+        {
+          "degree": 5,
+          "index": 4,
+          "label": "E",
+          "notes": [
+            "E4",
+            "G#4",
+            "B4"
+          ],
+          "quality": "major",
+          "roman": "V",
+          "root": "E"
+        },
+        {
+          "degree": 5,
+          "index": 4,
+          "label": "E",
+          "notes": [
+            "E4",
+            "G#4",
+            "B4"
+          ],
+          "quality": "major",
+          "roman": "V",
+          "root": "E"
+        }
+      ],
+      "drumPattern": [
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      ],
+      "bassPattern": "Root Notes",
+      "bassLine": [
+        {
+          "note": "A2",
+          "step": 0,
+          "velocity": 1
+        },
+        {
+          "note": "E3",
+          "step": 2,
+          "velocity": 0.7
+        },
+        {
+          "note": "D2",
+          "step": 4,
+          "velocity": 1
+        },
+        {
+          "note": "A2",
+          "step": 6,
+          "velocity": 0.7
+        },
+        {
+          "note": "E2",
+          "step": 8,
+          "velocity": 1
+        },
+        {
+          "note": "B2",
+          "step": 10,
+          "velocity": 0.7
+        },
+        {
+          "note": "E2",
+          "step": 12,
+          "velocity": 1
+        },
+        {
+          "note": "B2",
+          "step": 14,
+          "velocity": 0.7
+        }
+      ]
+    },
+    {
+      "name": "Intro",
+      "bars": 4,
+      "chords": [
+        {
+          "degree": 1,
+          "index": 0,
+          "label": "A",
+          "notes": [
+            "A4",
+            "C#5",
+            "E5"
+          ],
+          "quality": "major",
+          "roman": "I",
+          "root": "A"
+        },
+        {
+          "degree": 2,
+          "index": 1,
+          "label": "B min",
+          "notes": [
+            "B4",
+            "D5",
+            "F#5"
+          ],
+          "quality": "minor",
+          "roman": "ii",
+          "root": "B"
+        },
+        {
+          "degree": 3,
+          "index": 2,
+          "label": "C# min",
+          "notes": [
+            "C#4",
+            "E4",
+            "G#4"
+          ],
+          "quality": "minor",
+          "roman": "iii",
+          "root": "C#"
+        },
+        {
+          "degree": 4,
+          "index": 3,
+          "label": "D",
+          "notes": [
+            "D4",
+            "F#4",
+            "A4"
+          ],
+          "quality": "major",
+          "roman": "IV",
+          "root": "D"
+        },
+        {
+          "degree": 5,
+          "index": 4,
+          "label": "E",
+          "notes": [
+            "E4",
+            "G#4",
+            "B4"
+          ],
+          "quality": "major",
+          "roman": "V",
+          "root": "E"
+        },
+        {
+          "degree": 7,
+          "index": 6,
+          "label": "G# dim",
+          "notes": [
+            "G#4",
+            "B4",
+            "D5"
+          ],
+          "quality": "diminished",
+          "roman": "vii\u00b0",
+          "root": "G#"
+        },
+        {
+          "degree": 6,
+          "index": 5,
+          "label": "F# min",
+          "notes": [
+            "F#4",
+            "A4",
+            "C#5"
+          ],
+          "quality": "minor",
+          "roman": "vi",
+          "root": "F#"
+        },
+        {
+          "degree": 7,
+          "index": 6,
+          "label": "G# dim",
+          "notes": [
+            "G#4",
+            "B4",
+            "D5"
+          ],
+          "quality": "diminished",
+          "roman": "vii\u00b0",
+          "root": "G#"
+        }
+      ],
+      "drumPattern": [
+        [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          true
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      ],
+      "bassPattern": "Root Notes",
+      "bassLine": []
+    }
+  ],
+  "arrangement": [
+    "Main",
+    "Intro"
+  ],
+  "soundDesign": {}
+}

@@ -595,6 +595,14 @@ label {
     display: flex;
 }
 
+.arrangement-block.playing {
+    outline: 2px solid white;
+    outline-offset: 2px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+    transition: all 0.15s;
+}
+
 /* ====== Sound Design ====== */
 .sound-design-grid {
     display: grid;

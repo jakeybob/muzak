@@ -13,6 +13,16 @@ const SongStructure = {
     init() {
         this.container = document.getElementById("song-structure");
         this.render();
+
+        EventBus.on("arrangementBlockPlaying", (index) => this.highlightArrangementBlock(index));
+        EventBus.on("playbackStopped", () => this.highlightArrangementBlock(-1));
+    },
+
+    highlightArrangementBlock(index) {
+        const blocks = document.querySelectorAll(".arrangement-block");
+        blocks.forEach((block, i) => {
+            block.classList.toggle("playing", i === index);
+        });
     },
 
     render() {
