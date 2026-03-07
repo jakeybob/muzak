@@ -156,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
     SongStructure.init();
     SoundDesign.init();
     TheoryPanel.init();
+    Visualizer.init();
 
     function stopAll() {
         const wasArrangement = AppState.playMode === "arrangement";

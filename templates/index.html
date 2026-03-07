@@ -18,6 +18,19 @@
         </div>
     </header>
 
+    <section id="visualizer-section" class="module-panel visualizer-panel">
+        <div class="visualizer-header">
+            <h2>Visualizer</h2>
+            <div class="visualizer-modes">
+                <button class="btn btn-small active" id="viz-waveform">Waveform</button>
+                <button class="btn btn-small" id="viz-spectrum">Spectrum</button>
+            </div>
+        </div>
+        <div class="visualizer-container">
+            <canvas id="visualizer-canvas"></canvas>
+        </div>
+    </section>
+
     <main id="app-main">
         <div id="main-content">
             <section id="chord-builder-section" class="module-panel">
@@ -65,6 +78,7 @@
     <script src="{{ url_for('static', filename='js/song-structure.js') }}"></script>
     <script src="{{ url_for('static', filename='js/sound-design.js') }}"></script>
     <script src="{{ url_for('static', filename='js/theory-panel.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/visualizer.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

@@ -20,6 +20,12 @@ const AudioEngine = {
         this.effects.reverb.connect(this.masterChannel);
         this.effects.delay.connect(this.effects.reverb);
 
+        // Analyser for visualizer (raw Web Audio API node)
+        this.analyser = Tone.getContext().createAnalyser();
+        this.analyser.fftSize = 2048;
+        this.analyser.smoothingTimeConstant = 0.8;
+        Tone.getDestination().connect(this.analyser);
+
         // Chord synth (polyphonic)
         this.synths.chords = new Tone.PolySynth(Tone.Synth, {
             maxPolyphony: 8,
