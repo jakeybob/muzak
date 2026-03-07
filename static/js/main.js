@@ -236,5 +236,13 @@ document.addEventListener("DOMContentLoaded", () => {
         bpmDisplay.textContent = `BPM: ${bpm}`;
     });
 
+    // Export button
+    const btnExport = document.getElementById("btn-export");
+    const exportFormat = document.getElementById("export-format");
+    btnExport.addEventListener("click", () => {
+        const format = exportFormat.value;
+        AudioExporter.exportArrangement(format);
+    });
+
     console.log("Muzak initialized");
 });

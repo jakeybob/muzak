@@ -81,6 +81,30 @@ body {
     min-width: 70px;
 }
 
+.export-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 12px;
+    padding-left: 12px;
+    border-left: 1px solid var(--border);
+}
+
+#export-format {
+    background: var(--bg-panel);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.export-btn:disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
+
 #bpm-slider {
     width: 100px;
     accent-color: var(--accent);

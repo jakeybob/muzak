@@ -15,6 +15,13 @@
             <button id="btn-stop" class="transport-btn">&#9632; Stop</button>
             <span id="bpm-display">BPM: 120</span>
             <input type="range" id="bpm-slider" min="60" max="200" value="120">
+            <div class="export-controls">
+                <select id="export-format">
+                    <option value="wav">WAV</option>
+                    <option value="mp3">MP3</option>
+                </select>
+                <button id="btn-export" class="transport-btn export-btn">&#11015; Export</button>
+            </div>
         </div>
     </header>
 
@@ -79,6 +86,7 @@
     <script src="{{ url_for('static', filename='js/sound-design.js') }}"></script>
     <script src="{{ url_for('static', filename='js/theory-panel.js') }}"></script>
     <script src="{{ url_for('static', filename='js/visualizer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/exporter.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
