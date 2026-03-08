@@ -83,7 +83,11 @@ const MixerState = {
 
         // Drums
         ["kick", "snare", "hihatClosed", "hihatOpen"].forEach(name => {
-            if (s[name]) s[name].volume.value = this.isAudible("drums") ? (s[name]._userVolume ?? s[name]._defaultVol ?? -6) : -Infinity;
+            if (s[name]) {
+                const base = s[name]._userVolume ?? -6;
+                const offset = s[name]._drumBusOffset ?? 0;
+                s[name].volume.value = this.isAudible("drums") ? (base + offset) : -Infinity;
+            }
         });
     }
 };

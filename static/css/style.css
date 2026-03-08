@@ -885,12 +885,34 @@ label {
     padding: 12px;
 }
 
+.synth-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.synth-group-header h3 {
+    margin-bottom: 0;
+}
+
 .synth-group h3 {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--accent);
     margin-bottom: 10px;
+}
+
+.reset-btn {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    opacity: 0.6;
+    transition: opacity 0.15s;
+}
+
+.reset-btn:hover {
+    opacity: 1;
 }
 
 .knob-row {
