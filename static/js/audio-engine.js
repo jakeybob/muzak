@@ -83,6 +83,14 @@ const AudioEngine = {
         }).connect(this.masterChannel);
         this.synths.hihatOpen.volume.value = -12;
 
+        // Store default volumes for mixer solo/mute restore
+        this.synths.chords._userVolume = -8;
+        this.synths.bass._userVolume = -6;
+        this.synths.kick._userVolume = -6;
+        this.synths.snare._userVolume = -6;
+        this.synths.hihatClosed._userVolume = -12;
+        this.synths.hihatOpen._userVolume = -12;
+
         this.initialized = true;
         console.log("AudioEngine initialized");
     },

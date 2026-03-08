@@ -45,6 +45,49 @@ const AppState = {
     }
 };
 
+// Mixer state for solo/mute
+const MixerState = {
+    channels: {
+        chords: { muted: false, soloed: false },
+        drums:  { muted: false, soloed: false },
+        bass:   { muted: false, soloed: false },
+    },
+
+    toggle(channel, prop) {
+        const ch = this.channels[channel];
+        ch[prop] = !ch[prop];
+        // Mute and solo are mutually exclusive
+        if (ch[prop]) {
+            if (prop === "muted") ch.soloed = false;
+            else ch.muted = false;
+        }
+        this.apply();
+        EventBus.emit("mixerChanged", this.channels);
+    },
+
+    isAudible(channel) {
+        const hasSolo = Object.values(this.channels).some(c => c.soloed);
+        if (hasSolo) return this.channels[channel].soloed;
+        return !this.channels[channel].muted;
+    },
+
+    apply() {
+        if (!AudioEngine.initialized) return;
+        const s = AudioEngine.synths;
+
+        // Chords
+        if (s.chords) s.chords.volume.value = this.isAudible("chords") ? (s.chords._userVolume ?? -8) : -Infinity;
+
+        // Bass
+        if (s.bass) s.bass.volume.value = this.isAudible("bass") ? (s.bass._userVolume ?? -6) : -Infinity;
+
+        // Drums
+        ["kick", "snare", "hihatClosed", "hihatOpen"].forEach(name => {
+            if (s[name]) s[name].volume.value = this.isAudible("drums") ? (s[name]._userVolume ?? s[name]._defaultVol ?? -6) : -Infinity;
+        });
+    }
+};
+
 // Arrangement Player - schedules the full arrangement onto the transport
 const ArrangementPlayer = {
     scheduledEvents: [],
@@ -234,6 +277,26 @@ document.addEventListener("DOMContentLoaded", () => {
         AppState.songData.bpm = bpm;
         Tone.Transport.bpm.value = bpm;
         bpmDisplay.textContent = `BPM: ${bpm}`;
+    });
+
+    // Solo/Mute buttons
+    document.querySelectorAll(".mute-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            MixerState.toggle(btn.dataset.channel, "muted");
+        });
+    });
+    document.querySelectorAll(".solo-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            MixerState.toggle(btn.dataset.channel, "soloed");
+        });
+    });
+    EventBus.on("mixerChanged", (channels) => {
+        document.querySelectorAll(".mute-btn").forEach(btn => {
+            btn.classList.toggle("active", channels[btn.dataset.channel].muted);
+        });
+        document.querySelectorAll(".solo-btn").forEach(btn => {
+            btn.classList.toggle("active", channels[btn.dataset.channel].soloed);
+        });
     });
 
     // Export button

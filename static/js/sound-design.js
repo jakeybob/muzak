@@ -80,7 +80,11 @@ const SoundDesign = {
         this.bindKnob("chord-sustain", (v) => this.setSynthEnvelope("chords", "sustain", v));
         this.bindKnob("chord-release", (v) => this.setSynthEnvelope("chords", "release", v));
         this.bindKnob("chord-volume", (v) => {
-            if (AudioEngine.synths.chords) AudioEngine.synths.chords.volume.value = v;
+            if (AudioEngine.synths.chords) {
+                AudioEngine.synths.chords._userVolume = v;
+                if (typeof MixerState !== "undefined") MixerState.apply();
+                else AudioEngine.synths.chords.volume.value = v;
+            }
         });
         this.bindSelect("chord-wave", (v) => {
             if (AudioEngine.synths.chords) {
@@ -105,7 +109,11 @@ const SoundDesign = {
             if (AudioEngine.synths.bass) AudioEngine.synths.bass.filter.frequency.value = v;
         });
         this.bindKnob("bass-volume", (v) => {
-            if (AudioEngine.synths.bass) AudioEngine.synths.bass.volume.value = v;
+            if (AudioEngine.synths.bass) {
+                AudioEngine.synths.bass._userVolume = v;
+                if (typeof MixerState !== "undefined") MixerState.apply();
+                else AudioEngine.synths.bass.volume.value = v;
+            }
         });
         this.bindSelect("bass-wave", (v) => {
             if (AudioEngine.synths.bass) AudioEngine.synths.bass.oscillator.type = v;
@@ -113,15 +121,28 @@ const SoundDesign = {
 
         // Drums
         this.bindKnob("drum-kick-vol", (v) => {
-            if (AudioEngine.synths.kick) AudioEngine.synths.kick.volume.value = v;
+            if (AudioEngine.synths.kick) {
+                AudioEngine.synths.kick._userVolume = v;
+                if (typeof MixerState !== "undefined") MixerState.apply();
+                else AudioEngine.synths.kick.volume.value = v;
+            }
         });
         this.bindKnob("drum-snare-vol", (v) => {
-            if (AudioEngine.synths.snare) AudioEngine.synths.snare.volume.value = v;
+            if (AudioEngine.synths.snare) {
+                AudioEngine.synths.snare._userVolume = v;
+                if (typeof MixerState !== "undefined") MixerState.apply();
+                else AudioEngine.synths.snare.volume.value = v;
+            }
         });
         this.bindKnob("drum-hh-vol", (v) => {
             if (AudioEngine.synths.hihatClosed) {
-                AudioEngine.synths.hihatClosed.volume.value = v;
-                AudioEngine.synths.hihatOpen.volume.value = v;
+                AudioEngine.synths.hihatClosed._userVolume = v;
+                AudioEngine.synths.hihatOpen._userVolume = v;
+                if (typeof MixerState !== "undefined") MixerState.apply();
+                else {
+                    AudioEngine.synths.hihatClosed.volume.value = v;
+                    AudioEngine.synths.hihatOpen.volume.value = v;
+                }
             }
         });
 

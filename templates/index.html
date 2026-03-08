@@ -41,17 +41,35 @@
     <main id="app-main">
         <div id="main-content">
             <section id="chord-builder-section" class="module-panel">
-                <h2>Chord Progression</h2>
+                <div class="section-header">
+                    <h2>Chord Progression</h2>
+                    <div class="mix-controls">
+                        <button class="mix-btn mute-btn" data-channel="chords" title="Mute">M</button>
+                        <button class="mix-btn solo-btn" data-channel="chords" title="Solo">S</button>
+                    </div>
+                </div>
                 <div id="chord-builder"></div>
             </section>
 
             <section id="drum-sequencer-section" class="module-panel">
-                <h2>Drum Sequencer</h2>
+                <div class="section-header">
+                    <h2>Drum Sequencer</h2>
+                    <div class="mix-controls">
+                        <button class="mix-btn mute-btn" data-channel="drums" title="Mute">M</button>
+                        <button class="mix-btn solo-btn" data-channel="drums" title="Solo">S</button>
+                    </div>
+                </div>
                 <div id="drum-sequencer"></div>
             </section>
 
             <section id="bass-line-section" class="module-panel">
-                <h2>Bass Line</h2>
+                <div class="section-header">
+                    <h2>Bass Line</h2>
+                    <div class="mix-controls">
+                        <button class="mix-btn mute-btn" data-channel="bass" title="Mute">M</button>
+                        <button class="mix-btn solo-btn" data-channel="bass" title="Solo">S</button>
+                    </div>
+                </div>
                 <div id="bass-line"></div>
             </section>
 
@@ -61,7 +79,7 @@
             </section>
 
             <section id="sound-design-section" class="module-panel">
-                <h2>Sound Design</h2>
+                <h2>Live Sound Design</h2>
                 <div id="sound-design"></div>
             </section>
         </div>

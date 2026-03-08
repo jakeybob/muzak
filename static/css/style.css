@@ -189,6 +189,62 @@ body {
     border-bottom: 1px solid var(--border);
 }
 
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.section-header h2 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    flex: 1;
+}
+
+.section-header + div {
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 8px;
+}
+
+.mix-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.mix-btn {
+    width: 26px;
+    height: 26px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg-panel);
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mix-btn:hover {
+    border-color: var(--text-muted);
+}
+
+.mute-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+.solo-btn.active {
+    background: var(--warning);
+    border-color: var(--warning);
+    color: #111;
+}
+
 /* Theory Panel (right sidebar) */
 #theory-panel {
     position: sticky;
