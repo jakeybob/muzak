@@ -2,6 +2,12 @@
 
 An interactive browser-based music creation and learning tool. Build songs from scratch using chord progressions, drum patterns, and bass lines — all while learning the music theory behind what makes them work.
 
+All of this was written using [Claude Code](https://claude.com/product/claude-code).
+
+## YouTube Demo Video
+[![](https://img.youtube.com/vi/R62xHIuuaRg/0.jpg)](https://www.youtube.com/watch?v=R62xHIuuaRg)
+
+
 ## Features
 
 ### Chord Progression Builder
