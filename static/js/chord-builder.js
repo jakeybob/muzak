@@ -5,6 +5,40 @@ const ChordBuilder = {
     maxSlots: 8,
     scheduledEvents: [],
 
+    ALL_NOTES: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
+    CHORD_INTERVALS: {
+        'major': [0, 4, 7],
+        'minor': [0, 3, 7],
+        'diminished': [0, 3, 6],
+        'augmented': [0, 4, 8],
+        '7': [0, 4, 7, 10],
+        'maj7': [0, 4, 7, 11],
+        'min7': [0, 3, 7, 10],
+        '9': [0, 4, 7, 10, 14],
+        'maj9': [0, 4, 7, 11, 14],
+        'min9': [0, 3, 7, 10, 14],
+        '11': [0, 4, 7, 10, 14, 17],
+        'sus2': [0, 2, 7],
+        'sus4': [0, 5, 7],
+    },
+    CHORD_LABELS: {
+        'major': '', 'minor': 'm', 'diminished': 'dim', 'augmented': 'aug',
+        '7': '7', 'maj7': 'maj7', 'min7': 'm7',
+        '9': '9', 'maj9': 'maj9', 'min9': 'm9',
+        '11': '11', 'sus2': 'sus2', 'sus4': 'sus4',
+    },
+
+    buildChord(root, quality, octave = 4) {
+        const rootIdx = this.ALL_NOTES.indexOf(root);
+        const intervals = this.CHORD_INTERVALS[quality];
+        if (!intervals) return [];
+        return intervals.map(interval => {
+            const noteIdx = (rootIdx + interval) % 12;
+            const noteOctave = octave + Math.floor((rootIdx + interval) / 12);
+            return `${this.ALL_NOTES[noteIdx]}${noteOctave}`;
+        });
+    },
+
     init() {
         this.container = document.getElementById("chord-builder");
         this.render();
@@ -131,14 +165,19 @@ const ChordBuilder = {
 
             if (this.progression[i]) {
                 const chord = this.progression[i];
+                const suffix = this.CHORD_LABELS[chord.quality] ?? chord.quality;
                 slot.innerHTML = `
-                    <span class="slot-roman">${chord.roman}</span>
-                    <span class="slot-name">${chord.root}</span>
+                    <span class="slot-roman">${chord.roman || ''}</span>
+                    <span class="slot-name">${chord.root}${suffix}</span>
                     <button class="slot-remove" data-index="${i}">&times;</button>
                 `;
                 slot.querySelector(".slot-remove").addEventListener("click", (e) => {
                     e.stopPropagation();
                     this.removeFromProgression(parseInt(e.target.dataset.index));
+                });
+                slot.addEventListener("contextmenu", (e) => {
+                    e.preventDefault();
+                    this.showChordTypeMenu(i, e.clientX, e.clientY);
                 });
             } else {
                 slot.innerHTML = `<span class="slot-empty">${i + 1}</span>`;
@@ -146,6 +185,74 @@ const ChordBuilder = {
 
             timeline.appendChild(slot);
         }
+    },
+
+    showChordTypeMenu(slotIndex, x, y) {
+        this.hideChordTypeMenu();
+        const chord = this.progression[slotIndex];
+        if (!chord) return;
+
+        const menu = document.createElement("div");
+        menu.className = "chord-type-menu";
+        menu.id = "chord-type-menu";
+
+        Object.keys(this.CHORD_INTERVALS).forEach(quality => {
+            const item = document.createElement("div");
+            item.className = "chord-type-item";
+            if (quality === chord.quality) item.classList.add("current");
+            const suffix = this.CHORD_LABELS[quality];
+            item.textContent = `${chord.root}${suffix}` + (suffix ? '' : ' (major)');
+            item.addEventListener("click", () => {
+                this.changeChordType(slotIndex, quality);
+                this.hideChordTypeMenu();
+            });
+            menu.appendChild(item);
+        });
+
+        document.body.appendChild(menu);
+
+        // Position, keeping on-screen
+        const menuRect = { width: 140, height: menu.offsetHeight || 300 };
+        menu.style.left = Math.min(x, window.innerWidth - menuRect.width - 8) + "px";
+        menu.style.top = Math.min(y, window.innerHeight - menuRect.height - 8) + "px";
+
+        // Close on click outside
+        setTimeout(() => {
+            document.addEventListener("click", this._closeMenuHandler = () => this.hideChordTypeMenu(), { once: true });
+        }, 0);
+    },
+
+    hideChordTypeMenu() {
+        const menu = document.getElementById("chord-type-menu");
+        if (menu) menu.remove();
+        if (this._closeMenuHandler) {
+            document.removeEventListener("click", this._closeMenuHandler);
+            this._closeMenuHandler = null;
+        }
+    },
+
+    changeChordType(slotIndex, quality) {
+        const chord = this.progression[slotIndex];
+        if (!chord) return;
+
+        const notes = this.buildChord(chord.root, quality);
+        const suffix = this.CHORD_LABELS[quality];
+        const label = suffix ? `${chord.root}${suffix}` : chord.root;
+
+        this.progression[slotIndex] = {
+            ...chord,
+            quality,
+            notes,
+            label,
+            roman: '', // Custom chord types don't have a diatonic roman numeral
+        };
+
+        AppState.getCurrentSection().chords = this.progression.map(c => ({ ...c }));
+        this.renderTimeline();
+        EventBus.emit("progressionChanged", this.progression);
+
+        // Preview the new chord
+        AudioEngine.init().then(() => AudioEngine.playChord(notes, "4n"));
     },
 
     async onPresetSelect(e) {

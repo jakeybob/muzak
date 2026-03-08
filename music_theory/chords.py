@@ -5,6 +5,16 @@ CHORD_INTERVALS = {
     'major': [0, 4, 7],
     'minor': [0, 3, 7],
     'diminished': [0, 3, 6],
+    'augmented': [0, 4, 8],
+    '7': [0, 4, 7, 10],
+    'maj7': [0, 4, 7, 11],
+    'min7': [0, 3, 7, 10],
+    '9': [0, 4, 7, 10, 14],
+    'maj9': [0, 4, 7, 11, 14],
+    'min9': [0, 3, 7, 10, 14],
+    '11': [0, 4, 7, 10, 14, 17],
+    'sus2': [0, 2, 7],
+    'sus4': [0, 5, 7],
 }
 
 # Quality of each scale degree in a major key
