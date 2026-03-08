@@ -647,6 +647,26 @@ label {
     box-shadow: 0 0 6px rgba(155, 89, 182, 0.6);
 }
 
+/* In-key highlighting for piano roll */
+.bass-row.in-key .bass-cell {
+    background: #2a2a5a;
+    border-color: #3a3a6a;
+}
+
+.bass-row.in-key .bass-cell:hover {
+    background: #4a4a7a;
+}
+
+.bass-row.in-key .bass-cell.active {
+    background: #9b59b6;
+    border-color: #9b59b6;
+}
+
+.bass-note-label.in-key {
+    color: var(--success);
+    font-weight: 600;
+}
+
 /* ====== Song Structure ====== */
 .structure-controls {
     display: flex;

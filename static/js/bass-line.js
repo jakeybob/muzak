@@ -11,6 +11,20 @@ const BassLine = {
         "B2", "A#2", "A2", "G#2", "G2", "F#2", "F2", "E2", "D#2", "D2", "C#2", "C2"
     ],
 
+    ALL_NOTES: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
+    SCALE_PATTERNS: {
+        major: [0, 2, 4, 5, 7, 9, 11],
+        minor: [0, 2, 3, 5, 7, 8, 10],
+    },
+
+    getScaleNotes() {
+        const key = AppState.songData.key;
+        if (!key || !key.root) return [];
+        const rootIdx = this.ALL_NOTES.indexOf(key.root);
+        const pattern = this.SCALE_PATTERNS[key.scaleType] || this.SCALE_PATTERNS.major;
+        return pattern.map(interval => this.ALL_NOTES[(rootIdx + interval) % 12]);
+    },
+
     PATTERN_DESCRIPTIONS: {
         "Root Notes": "Plays the root note of each chord on beat 1",
         "Root-Fifth": "Root on beat 1, fifth on beat 3",
@@ -27,6 +41,7 @@ const BassLine = {
         EventBus.on("progressionChanged", () => {
             if (this.mode === "auto") this.generateBass();
         });
+        EventBus.on("keyChanged", () => this.renderDisplay());
     },
 
     render() {
@@ -205,13 +220,19 @@ const BassLine = {
     renderManualView(display) {
         const grid = document.createElement("div");
         grid.className = "bass-grid";
+        const scaleNotes = this.getScaleNotes();
 
         this.PIANO_ROLL_NOTES.forEach(note => {
+            const noteName = note.replace(/\d/, "");
+            const isInKey = scaleNotes.includes(noteName);
+
             const row = document.createElement("div");
             row.className = "bass-row";
+            if (isInKey) row.classList.add("in-key");
 
             const label = document.createElement("span");
             label.className = "bass-note-label";
+            if (isInKey) label.classList.add("in-key");
             label.textContent = note;
             row.appendChild(label);
 
